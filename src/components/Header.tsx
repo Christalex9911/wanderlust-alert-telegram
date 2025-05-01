@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Button } from "@/components/ui/button";
-import { PhoneIcon } from 'lucide-react';
+import { PhoneIcon, Telegram } from 'lucide-react';
 
 const Header: React.FC = () => {
   return (
@@ -16,6 +16,9 @@ const Header: React.FC = () => {
         <nav className="hidden md:flex items-center space-x-6">
           <a href="#tours" className="text-sm font-medium hover:text-hotdeal transition-colors">
             Горящие туры
+          </a>
+          <a href="#popular" className="text-sm font-medium hover:text-hotdeal transition-colors">
+            Популярные направления
           </a>
           <a href="#about" className="text-sm font-medium hover:text-hotdeal transition-colors">
             О нас
@@ -32,6 +35,15 @@ const Header: React.FC = () => {
           >
             <PhoneIcon size={16} />
             <span>8 (800) 123-45-67</span>
+          </a>
+          <a 
+            href="https://t.me/yourtelegrambot" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="hidden sm:flex items-center space-x-1 font-medium text-sm text-travel-dark hover:text-hotdeal transition-colors"
+          >
+            <Telegram size={16} />
+            <span>Telegram</span>
           </a>
           <Button
             className="bg-hotdeal hover:bg-hotdeal-hover text-xs sm:text-sm"

@@ -36,8 +36,7 @@ const BookingForm: React.FC<BookingFormProps> = ({
   });
   const [loading, setLoading] = useState(false);
   
-  // You should replace this with your actual Telegram webhook URL
-  // This would typically come from an environment variable
+  // Замените эту строку на вашу фактическую URL вебхука Telegram
   const telegramWebhookUrl = '';
 
   const handleChange = (
@@ -45,6 +44,16 @@ const BookingForm: React.FC<BookingFormProps> = ({
   ) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const validatePhoneNumber = (phone: string): boolean => {
+    const phoneRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+    return phoneRegex.test(phone);
+  };
+  
+  const validateEmail = (email: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -56,6 +65,24 @@ const BookingForm: React.FC<BookingFormProps> = ({
       toast({
         title: "Ошибка",
         description: "Пожалуйста, заполните все обязательные поля",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (!validatePhoneNumber(formData.phone)) {
+      toast({
+        title: "Ошибка",
+        description: "Введите корректный номер телефона",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (!validateEmail(formData.email)) {
+      toast({
+        title: "Ошибка",
+        description: "Введите корректный Email",
         variant: "destructive",
       });
       return;
@@ -119,9 +146,14 @@ const BookingForm: React.FC<BookingFormProps> = ({
                   {selectedTour.title}
                 </span>
                 <span>{selectedTour.destination}, {selectedTour.duration}</span>
-                <span className="text-hotdeal font-bold">
-                  {selectedTour.price.toLocaleString('ru-RU')} ₽
-                </span>
+                <div className="flex justify-between items-center">
+                  <span className="text-hotdeal font-bold">
+                    {selectedTour.price.toLocaleString('ru-RU')} ₽
+                  </span>
+                  <span className="text-sm">
+                    Осталось мест: {selectedTour.availablePlaces}
+                  </span>
+                </div>
               </div>
             ) : (
               "Заполните форму для бронирования"
@@ -181,10 +213,15 @@ const BookingForm: React.FC<BookingFormProps> = ({
           </div>
           
           <DialogFooter>
-            <Button type="submit" disabled={loading}>
+            <Button type="submit" disabled={loading} className="bg-hotdeal hover:bg-hotdeal-hover w-full">
               {loading ? "Отправляем..." : "Отправить заявку"}
             </Button>
           </DialogFooter>
+          
+          <div className="text-xs text-center text-muted-foreground">
+            Нажимая кнопку "Отправить заявку", вы соглашаетесь с нашими 
+            условиями обработки персональных данных
+          </div>
         </form>
       </DialogContent>
     </Dialog>

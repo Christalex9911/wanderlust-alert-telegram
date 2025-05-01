@@ -27,6 +27,14 @@ const TourCard: React.FC<TourCardProps> = ({ tour, onBookNow }) => {
             <span className="hot-badge animate-pulse-red">Горящий тур</span>
           </div>
         )}
+
+        {tour.popularity === "Сверхпопулярность" && (
+          <div className="absolute top-2 right-2">
+            <span className="popularity-badge bg-red-600">
+              Сверхпопулярный
+            </span>
+          </div>
+        )}
         
         <div className="absolute bottom-2 right-2">
           <div className={`places-badge ${isLowAvailability ? 'bg-hotdeal' : 'bg-travel-dark'}`}>
@@ -67,9 +75,13 @@ const TourCard: React.FC<TourCardProps> = ({ tour, onBookNow }) => {
             <span className="text-muted-foreground">Длительность:</span>
             <span className="font-medium">{tour.duration}</span>
           </div>
-          <div className="flex justify-between text-sm">
+          <div className="flex justify-between text-sm mb-2">
             <span className="text-muted-foreground">Вылет:</span>
             <span className="font-medium">{tour.departureDate}</span>
+          </div>
+          <div className="flex justify-between text-sm">
+            <span className="text-muted-foreground">Возвращение:</span>
+            <span className="font-medium">{tour.returnDate}</span>
           </div>
           <p className="mt-3 text-sm line-clamp-3">{tour.description}</p>
         </div>
@@ -83,6 +95,12 @@ const TourCard: React.FC<TourCardProps> = ({ tour, onBookNow }) => {
               {feature}
             </span>
           ))}
+        </div>
+
+        <div className="mt-3 flex items-center">
+          <div className="text-xs text-gray-500">
+            <span className="font-semibold">{tour.totalPlaces}</span> человек выбрали этот тур
+          </div>
         </div>
       </CardContent>
 
