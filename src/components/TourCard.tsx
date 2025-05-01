@@ -1,9 +1,17 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Tour } from '../data/toursData';
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Users } from "lucide-react";
+import { Users, ChevronLeft, ChevronRight } from "lucide-react";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 interface TourCardProps {
   tour: Tour;
@@ -17,26 +25,40 @@ const TourCard: React.FC<TourCardProps> = ({ tour, onBookNow }) => {
   return (
     <Card className="overflow-hidden h-full flex flex-col hover:shadow-lg transition-shadow">
       <div className="relative">
-        <div 
-          className="h-48 bg-cover bg-center" 
-          style={{ backgroundImage: `url(${tour.imageUrl})` }}
-        />
+        <Carousel className="w-full">
+          <CarouselContent>
+            {tour.images.map((image, index) => (
+              <CarouselItem key={index}>
+                <AspectRatio ratio={16 / 9}>
+                  <div 
+                    className="h-48 bg-cover bg-center w-full"
+                    style={{ backgroundImage: `url(${image})` }}
+                  />
+                </AspectRatio>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <div className="absolute inset-0 flex justify-between items-center px-2 pointer-events-none">
+            <CarouselPrevious className="h-8 w-8 pointer-events-auto" />
+            <CarouselNext className="h-8 w-8 pointer-events-auto" />
+          </div>
+        </Carousel>
         
         {tour.isHot && (
-          <div className="absolute top-2 left-2">
+          <div className="absolute top-2 left-2 z-10">
             <span className="hot-badge animate-pulse-red">Горящий тур</span>
           </div>
         )}
 
         {tour.popularity === "Сверхпопулярность" && (
-          <div className="absolute top-2 right-2">
+          <div className="absolute top-2 right-2 z-10">
             <span className="popularity-badge bg-red-600">
               Сверхпопулярный
             </span>
           </div>
         )}
         
-        <div className="absolute bottom-2 right-2">
+        <div className="absolute bottom-2 right-2 z-10">
           <div className={`places-badge ${isLowAvailability ? 'bg-hotdeal' : 'bg-travel-dark'}`}>
             <Users size={14} />
             {isLowAvailability ? (
