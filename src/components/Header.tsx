@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Button } from "@/components/ui/button";
-import { PhoneIcon, Telegram } from 'lucide-react';
+import { PhoneIcon, MessageSquare } from 'lucide-react';
 
 const Header: React.FC = () => {
   return (
@@ -42,7 +42,7 @@ const Header: React.FC = () => {
             rel="noopener noreferrer" 
             className="hidden sm:flex items-center space-x-1 font-medium text-sm text-travel-dark hover:text-hotdeal transition-colors"
           >
-            <Telegram size={16} />
+            <MessageSquare size={16} />
             <span>Telegram</span>
           </a>
           <Button
