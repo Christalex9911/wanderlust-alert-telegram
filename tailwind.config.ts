@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,18 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				hotdeal: {
+					DEFAULT: '#ff4d4d',
+					hover: '#ff3333',
+					light: '#ffb3b3',
+					dark: '#cc0000',
+				},
+				travel: {
+					DEFAULT: '#1e88e5',
+					hover: '#1976d2',
+					light: '#bbdefb',
+					dark: '#0d47a1',
 				}
 			},
 			borderRadius: {
@@ -84,11 +97,21 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'pulse-red': {
+					'0%, 100%': { backgroundColor: 'rgba(255, 77, 77, 0.8)' },
+					'50%': { backgroundColor: 'rgba(255, 77, 77, 0.5)' },
+				},
+				'bounce-subtle': {
+					'0%, 100%': { transform: 'translateY(0)' },
+					'50%': { transform: 'translateY(-3px)' },
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'pulse-red': 'pulse-red 2s infinite',
+				'bounce-subtle': 'bounce-subtle 2s infinite',
 			}
 		}
 	},
